@@ -17,7 +17,7 @@ const AddTask = async (req, res) => {
         const result = taskService.createTask({title, description, due_date, priority});
         res.status(201).json({
             status: "success",
-            result: result
+            result
         });
         console.log("AddTask function from taskController.js *************************");
 
