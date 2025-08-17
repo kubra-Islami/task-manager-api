@@ -14,8 +14,6 @@ const create = async (task) => {
     }
 }
 
-
-
 const getAllTask = async (userId) => {
     try{
         const result = await db.query(
@@ -29,8 +27,27 @@ const getAllTask = async (userId) => {
     }
 }
 
+const deleteTask = async (taskId) => {
+    try {
+        const result = await db.query(
+            `DELETE FROM tasks WHERE id = $1 RETURNING *`,[taskId]
+        );
+
+        if (result.rows.length === 0) {
+             throw new Error("Task not found");
+        }
+
+        // return deleted task
+        return result.rows[0];
+
+    }catch(err){
+        throw new Error("Error deleting task: " + err.message);
+    }
+
+}
 
 export default {
     create,
-    getAllTask
+    getAllTask,
+    deleteTask
 };
