@@ -15,6 +15,22 @@ const create = async (task) => {
 }
 
 
+
+const getAllTask = async (userId) => {
+    try{
+        const result = await db.query(
+            `SELECT * FROM tasks WHERE user_id = $1`,
+            [userId]
+        );
+        return result.rows;
+
+    }catch(err){
+        throw new Error("Error getting tasks" + err.message);
+    }
+}
+
+
 export default {
-    create
+    create,
+    getAllTask
 };

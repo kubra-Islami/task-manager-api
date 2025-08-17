@@ -1,15 +1,22 @@
 import taskService from '../services/taskService.js';
 
-const getAllTasks = async (req, res) => {
+const getTasksByUser = async (req, res) => {
     try {
+        const userId = req.user.id;
+        const tasks = await taskService.getTasksByUserId(userId);
 
+        res.status(201).json({
+            status: "success",
+            tasks,
+            user_id: userId,
+        });
 
     } catch (err) {
-        // res.status(500).json({error: err, message});
+        res.status(500).json({ status: "failed", error: error.message });
+
     }
 }
 
-// console.log("taskController.js *************************");
 const createTask = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -33,5 +40,6 @@ const createTask = async (req, res) => {
 }
 
 export default {
-    createTask
+    createTask,
+    getTasksByUser
 }

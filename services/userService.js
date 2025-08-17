@@ -29,6 +29,7 @@ const loginUser = async ({email, password}) => {
 }
 
 
+
 export default {
     createUser,
     loginUser
