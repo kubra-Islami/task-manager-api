@@ -20,14 +20,13 @@ const getTasksByUser = async (req, res) => {
 const createTask = async (req, res) => {
     try {
         const userId = req.user.id;
-        const {title, description, due_date, priority} = req.body;
+        const {title, description, due_date, priority,subtasks} = req.body;
 
         const task = await taskService.createTask({
             taskData: {title, description, due_date, priority},
+            subtasks,
             userId
         });
-
-        console.log(task);
         res.status(201).json({
             status: "success",
             task,
@@ -35,7 +34,6 @@ const createTask = async (req, res) => {
         });
 
     } catch (error) {
-        // console.log("taskController.js error file ")
         res.status(500).json({status: "failed", error: error.message});
     }
 }

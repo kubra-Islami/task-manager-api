@@ -47,7 +47,6 @@ const deleteTask = async (taskId) => {
             throw new Error("Task not found");
         }
 
-        // return deleted task
         return result.rows[0];
 
     } catch (err) {
@@ -67,8 +66,6 @@ const updateTask = async (taskId, userId, updatedData) => {
             updatedData.priority = updatedData.priority.toLowerCase();
         }
 
-
-        // Build the query dynamically based on the fields in updatedData
         const fields = [];
         const values = [];
         let i = 1;
