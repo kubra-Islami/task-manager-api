@@ -21,7 +21,9 @@ const loginUser = async ({email, password}) => {
     const match = await bcrypt.compare(password, user.password);
     if(!match) throw new Error('Invalid password');
 
-    const token = await jwt.sign({id:user.id , email : user.email}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN});
+    const token = await jwt.sign(
+        {id:user.id , email : user.email},
+        process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRES_IN});
 
     return {user , token};
 }

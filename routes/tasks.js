@@ -1,13 +1,15 @@
 import express from 'express';
-const router = express.Router();
 import taskController from '../controllers/taskController.js';
+import authMiddleware  from "../middlewares/authMiddleware.js";
 
 
-
-router.post('/add_task',taskController.AddTask);
-// console.log("tasks.js");
+const router = express.Router();
 
 
+router.post('/add_task',authMiddleware,taskController.createTask);
+// router.post('/',authMiddleware,taskController.getTasks);
+// router.delete("/:id",authMiddleware,taskController.deleteTask)
 
+// console.log("tasks.js file ")
 
 export default router;

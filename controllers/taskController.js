@@ -1,4 +1,3 @@
-// const taskService = require('../services/taskService');
 import taskService from '../services/taskService.js';
 
 const getAllTasks = async (req, res) => {
@@ -11,21 +10,28 @@ const getAllTasks = async (req, res) => {
 }
 
 // console.log("taskController.js *************************");
-const AddTask = async (req, res) => {
+const createTask = async (req, res) => {
     try {
+        const userId = req.user.id;
         const {title, description, due_date, priority} = req.body;
-        const result = taskService.createTask({title, description, due_date, priority});
+
+        const task = await taskService.createTask({
+            taskData: { title, description, due_date, priority },
+            userId
+        });
+
         res.status(201).json({
             status: "success",
-            result
+            task,
+            user_id: userId,
         });
-        console.log("AddTask function from taskController.js *************************");
 
     } catch (error) {
-        res.status(500).json({status: "failed", error: error});
+        console.log("taskController.js error file ")
+        res.status(500).json({status: "failed", error: error.message});
     }
 }
 
 export default {
-    AddTask
+    createTask
 }
