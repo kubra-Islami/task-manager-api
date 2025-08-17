@@ -23,8 +23,15 @@ const deleteTaskById = async (taskId, userId) => {
 
     return taskModel.deleteTask(taskId);
 }
+
+const updateTaskById = async (taskId, userId, taskData) => {
+    if (!taskId) throw new Error('Task ID is required');
+    return taskModel.updateTask(taskId, userId, taskData);
+
+}
 export default {
     createTask,
     getTasksByUserId,
-    deleteTaskById
+    deleteTaskById,
+    updateTaskById
 };

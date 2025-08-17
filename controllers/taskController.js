@@ -27,6 +27,7 @@ const createTask = async (req, res) => {
             userId
         });
 
+        console.log(task);
         res.status(201).json({
             status: "success",
             task,
@@ -34,7 +35,7 @@ const createTask = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("taskController.js error file ")
+        // console.log("taskController.js error file ")
         res.status(500).json({status: "failed", error: error.message});
     }
 }
@@ -44,7 +45,6 @@ const deleteTask = async (req, res) => {
         const userId = req.user.id;
         const {taskId} = req.params;
 
-        // console.log(taskId);
         const deletedTask = await taskService.deleteTaskById(taskId, userId);
 
 
@@ -58,9 +58,25 @@ const deleteTask = async (req, res) => {
     }
 }
 
+const updateTask = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const taskId = parseInt(req.params.id);
+        const taskData = req.body;
+        const updatedTask = await taskService.updateTaskById(taskId, userId, taskData);
+
+        res.status(200).json({
+            status: "success",
+            task: updatedTask,
+        });
+    } catch (error) {
+        res.status(500).json({ status: "failed", error: error.message });
+    }
+}
 
 export default {
     createTask,
     getTasksByUser,
-    deleteTask
+    deleteTask,
+    updateTask
 }
