@@ -2,7 +2,6 @@ import userService from '../services/userService.js';
 import bcrypt from 'bcrypt';
 
 const registerUser = async (request, response) => {
-
     try {
         const {name, email, password} = request.body;
         if (!name || !email || !password) {
@@ -22,6 +21,7 @@ const registerUser = async (request, response) => {
 
     } catch (err) {
         response.status(500).json({
+            body : request.body,
             status: "failed to register",
             error: err.message
         })
