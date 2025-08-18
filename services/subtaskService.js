@@ -5,7 +5,7 @@ const deleteSubtask = async (taskId, subtaskId) => {
         throw new Error("Task ID and Subtask ID are required");
     }
 
-    return await subtaskModel.deleteSubtask(taskId, subtaskId,name);
+    return await subtaskModel.deleteSubtask(taskId, subtaskId);
 };
 
 const updateSubtask = async (taskId, subtaskId,name) => {
@@ -19,6 +19,11 @@ const updateSubtask = async (taskId, subtaskId,name) => {
     return await subtaskModel.updateSubtask(taskId, subtaskId, name);
 
 }
+const createMultipleSubtasks = async ({ subtasks, taskId }) => {
+    return Promise.all(
+        subtasks.map((name) => subtaskModel.create({ name, task_id: taskId }))
+    );
+};
 export default {
-    deleteSubtask,updateSubtask
+    deleteSubtask,updateSubtask,createMultipleSubtasks
 };

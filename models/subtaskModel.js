@@ -51,6 +51,13 @@ const updateSubtask = async (taskId, subtaskId, name) => {
     }
 }
 
+const getAllSubtasksByTaskId = async (taskId) => {
+    const { rows } = await db.query(
+        `SELECT id, name, task_id, created_at FROM subtasks WHERE task_id = $1 ORDER BY id`,
+        [taskId]
+    );
+    return rows;
+};
 export default {
-    create, deleteSubtask, updateSubtask
+    create, deleteSubtask, updateSubtask,getAllSubtasksByTaskId
 };

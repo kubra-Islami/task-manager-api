@@ -44,6 +44,30 @@ const updateSubtask = async (req, res) => {
     }
 }
 
+const createSubtask = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const { subtasks  } = req.body;
+
+        if (!subtasks || !Array.isArray(subtasks) || subtasks.length === 0) {
+            return res.status(400).json({ error: "Subtasks array is required" });
+        }
+
+        const createdSubtasks = await subtaskService.createMultipleSubtasks({
+            subtasks,
+            taskId,
+        });
+
+        res.status(201).json({
+            status: "success",
+            subtasks: createdSubtasks,
+        });
+
+    }catch (error) {
+        res.status(500).json({ status: "failed", error: error.message });
+    }
+}
+
 export default {
-    deleteSubtask,updateSubtask
+    deleteSubtask,updateSubtask,createSubtask
 };

@@ -13,7 +13,7 @@ CREATE TABLE tasks
     title       VARCHAR(255) NOT NULL,
     description TEXT,
     status      VARCHAR(20) DEFAULT 'todo' CHECK (status IN ('todo', 'in_progress', 'done','on_hold')),
-    priority    VARCHAR(20) CHECK (priority IN ('low', 'medium', 'high')),
+    priority    VARCHAR(20) DEFAULT '' CHECK (priority IN ('low', 'medium', 'high')),
     due_date    TIMESTAMP,
     user_id     INTEGER REFERENCES Users (id) ON DELETE CASCADE,
     created_at  TIMESTAMP   DEFAULT CURRENT_TIMESTAMP
