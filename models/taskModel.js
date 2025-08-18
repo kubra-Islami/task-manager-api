@@ -62,7 +62,7 @@ const updateTask = async (taskId, userId, updatedData) => {
             if (!validPriorities.includes(updatedData.priority.toLowerCase())) {
                 throw new Error("Priority must be 'low', 'medium', or 'high'");
             }
-            // Ensure we send lowercase to DB
+            // Ensure sending lowercase to DB
             updatedData.priority = updatedData.priority.toLowerCase();
         }
 
@@ -88,6 +88,7 @@ const updateTask = async (taskId, userId, updatedData) => {
 
         const result = await db.query(query, values);
 
+        console.log(query);
         if (result.rows.length === 0) {
             throw new Error("Task not found or not yours");
         }
@@ -97,6 +98,7 @@ const updateTask = async (taskId, userId, updatedData) => {
         throw new Error("Error updating task: " + err.message);
     }
 }
+
 export default {
     create,
     getAllTask,
