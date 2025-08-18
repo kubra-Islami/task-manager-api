@@ -1,5 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
+
+import cors from 'cors';
+import corsOptions from './coresOptions.js';
+
 import cookieParser from 'cookie-parser';
 
 import express from "express";
@@ -8,8 +12,16 @@ import taskRoutes from './routes/tasks.js';
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+// Use CORS middleware
+app.use(cors());
+app.use(cors(corsOptions));
+
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
 app.use("/user", userRoutes);
 app.use("/task", taskRoutes);
 
