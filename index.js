@@ -22,6 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.get("/", (req, res) => {
+    res.json({ status: "ok", message: "Task Manager API is running 🚀" });
+});
+
 app.use("/user", userRoutes);
 app.use("/task", taskRoutes);
 

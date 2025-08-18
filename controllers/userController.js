@@ -22,7 +22,7 @@ const registerUser = async (request, response) => {
 
     } catch (err) {
         response.status(500).json({
-            status: "failed",
+            status: "failed to register",
             error: err.message
         })
     }
