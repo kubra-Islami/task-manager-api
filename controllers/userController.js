@@ -20,10 +20,17 @@ const registerUser = async (request, response) => {
         });
 
     } catch (err) {
+        console.error("Register error:", err);
         response.status(500).json({
             body : request.body,
             status: "failed to register",
-            error: err.message
+            error: {
+                message: err.message,
+                detail: err.detail || null,
+                code: err.code || null,
+                error: String(err),
+                stack: err.stack
+            },
         })
     }
 }
